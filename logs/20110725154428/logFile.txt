@@ -1,0 +1,9 @@
+openGoogle,20110725154440,,http://grooveshark.com/,,PASSED
+selectSrchBox,20110725154442,,http://grooveshark.com/,,PASSED
+typeSrchBox,20110725154443,,http://grooveshark.com/,,PASSED
+srchGoogle,20110725154448,,http://grooveshark.com/,,PASSED
+googleHome,20110725154500,,http://grooveshark.com/,,PASSED
+selectSrchBox,20110725154502,,http://grooveshark.com/,,PASSED
+typeSrchBox,20110725154503,,http://grooveshark.com/,,PASSED
+srchGoogle,20110725154507,,http://grooveshark.com/,,PASSED
+googleHome,20110725154519,,http://grooveshark.com/,,PASSED

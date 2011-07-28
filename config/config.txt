@@ -1,0 +1,12 @@
+[vars]
+failCount=0
+failLimit=6
+startTimer=0
+endTimer=0
+dateFormat=%Y%m%d%H%M%S
+site=http://grooveshark.com/
+screenWidth=1600
+screenHeight=900
+iePath=
+firefoxPath=
+chromePath=

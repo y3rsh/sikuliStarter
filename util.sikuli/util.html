@@ -1,0 +1,373 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }  
+         
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>util.sikuli\util.sikuli</h2> <a href="util.sikuli\util.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="kw">from</span> sikuli.Sikuli <span class="kw">import</span> *
+<span class="kw">import</span> subprocess
+<span class="kw">import</span> datetime
+<span class="kw">import</span> os
+<span class="kw">import</span> shutil
+<span class="kw">import</span> traceback
+<span class="kw">import</span> sys
+<span class="kw">import</span> ConfigParser
+
+<span class="kw">class</span> util:
+
+        <span class="kw">def</span> __init__(self):
+                <span class="cmt"># read the config file and get the variables
+</span>                config = ConfigParser.ConfigParser()
+                config.read(<span class="str">"C:\\sikuli\\sikuliStarter\\config\\config.txt"</span>)
+
+                <span class="cmt"># grab each variable seperately
+</span>                self.findFaildsCounter = int(config.get(<span class="str">"vars"</span>,<span class="str">"failCount"</span>))
+                self.findFaildsLimit = int(config.get(<span class="str">"vars"</span>,<span class="str">"failLimit"</span>))
+                self.startOfTimer = config.get(<span class="str">"vars"</span>,<span class="str">"startTimer"</span>)
+                self.endOfTimer = config.get(<span class="str">"vars"</span>,<span class="str">"endTimer"</span>)
+                self.dateFormatString = config.get(<span class="str">"vars"</span>,<span class="str">"dateFormat"</span>)
+                self.site = config.get(<span class="str">"vars"</span>,<span class="str">"site"</span>)
+                self.screenWidth = int(config.get(<span class="str">"vars"</span>,<span class="str">"screenWidth"</span>))
+                self.screenHeight = int(config.get(<span class="str">"vars"</span>,<span class="str">"screenHeight"</span>))
+                self.ie = config.get(<span class="str">"vars"</span>,<span class="str">"iePath"</span>)
+                self.firefox = config.get(<span class="str">"vars"</span>,<span class="str">"firefoxPath"</span>)
+                self.chrome = config.get(<span class="str">"vars"</span>,<span class="str">"chromePath"</span>)
+                self.user = <span class="str">""</span>
+                self.password = <span class="str">""</span>
+                self.delim = <span class="str">","</span>
+
+                <span class="cmt"># create new directory
+</span>                self.folder = <span class="str">"C:\\sikuli\\sikuliStarter\\logs\\"</span>+self.timeStamp()
+                self.createDirectory(self.folder)
+                self.csvPath = self.folder+<span class="str">"\\logFile.txt"</span>
+                self.imagePath = self.folder
+
+                <span class="cmt"># read the data file and get the variables
+</span>                data = ConfigParser.ConfigParser()
+                data.read(<span class="str">"C:\\sikuli\\sikuliStarter\\testData\\testdata.txt"</span>)
+
+                <span class="cmt"># grab the terms string and seperate them into an array
+</span>                self.termsArr = data.get(<span class="str">"terms"</span>,<span class="str">"term"</span>).split(<span class="str">","</span>)
+
+
+        <span class="cmt"># this method returns a time stamp
+</span>        <span class="kw">def</span> timeStamp(self):
+                <span class="kw">return</span> datetime.datetime.now().strftime(self.dateFormatString)
+
+        <span class="cmt"># this method is used to terminate the test when
+</span>        <span class="cmt"># an error is too critical to continue
+</span>        <span class="kw">def</span> criticalError(self,test):
+                <span class="cmt"># if findFaildsCounter equals findFaildsLimit
+</span>                <span class="cmt"># the handleFindFailds method terminates the test
+</span>                self.findFaildsCounter =  self.findFaildsLimit
+
+                <span class="cmt"># terminate the test
+</span>                self.handleFindFailds(test)
+
+        <span class="cmt"># this method will move the mouse to the corner to avoid
+</span>        <span class="cmt"># disrupting an image the program is trying to locate
+</span>        <span class="kw">def</span> clearMouse(self):
+                <span class="cmt"># move the mouse to the top-left corner
+</span>                mouseMove(Location(<span class="dig">0</span>,<span class="dig">0</span>))
+
+        <span class="cmt"># this method will log information every time
+</span>        <span class="cmt"># a test passes successfully
+</span>        <span class="kw">def</span> passed(self,test,comment=<span class="str">""</span>):
+                status = <span class="str">"PASSED"</span>
+
+                <span class="cmt"># set 't' to today's date
+</span>                t = datetime.datetime.now().strftime(self.dateFormatString)
+
+                <span class="cmt"># call this method to take the screenshot
+</span>                self.captureMyScreen(status,t)
+
+                <span class="cmt"># format the string that will be written to a csv file
+</span>                theString = test+self.delim+t+self.delim+self.user+self.delim+self.site+self.delim+comment+self.delim+status+<span class="str">"\n"</span>
+
+                <span class="cmt"># write the string to the file
+</span>
+                logFile = open(self.csvPath,<span class="str">'a'</span>)
+                logFile.write(theString)
+                <span class="kw">print</span>(theString)
+                logFile.close()
+
+
+        <span class="cmt"># this method will log information every time
+</span>        <span class="cmt"># a test fails
+</span>        <span class="kw">def</span> failed(self,test,comment=<span class="str">""</span>):
+                status = <span class="str">"FAILED"</span>
+
+                <span class="cmt"># set 't' to today's date
+</span>                t = datetime.datetime.now().strftime(self.dateFormatString)
+
+                <span class="cmt"># call this method to take the screenshot
+</span>                self.captureMyScreen(status,t)
+
+                <span class="cmt"># format the string that will be written to a csv file
+</span>                theString = test+self.delim+t+self.delim+self.user+self.delim+self.site+self.delim+comment+self.delim+status+<span class="str">"\n"</span>
+
+                <span class="cmt"># write the string to the file
+</span>                logFile = open(self.csvPath,<span class="str">'a'</span>)
+                logFile.write(theString)
+                <span class="kw">print</span>(theString)
+                logFile.close()
+
+                self.handleFindFailds(test)
+
+        <span class="cmt"># this method takes a screenshot of the
+</span>        <span class="cmt"># entire screen
+</span>        <span class="kw">def</span> captureMyScreen(self,status,stamp):
+
+                <span class="cmt"># create a new region to screenshot
+</span>                newarea = <span class="skw">capture</span>(Region(<span class="dig">0</span>,<span class="dig">0</span>,self.screenWidth,self.screenHeight))
+                <span class="kw">print</span> <span class="str">"File "</span>, newarea
+
+                <span class="cmt"># create the file's name
+</span>                fileName = stamp + status + <img src=".png" />
+
+                <span class="cmt"># create the path to save the screenshot
+</span>                goodPath = os.path.join(self.imagePath,fileName)
+                <span class="kw">print</span>(goodPath)
+
+                <span class="cmt"># save the screenshot to the specified directory
+</span>                shutil.move(newarea, goodPath)
+
+        <span class="cmt"># this method ends the test
+</span>        <span class="kw">def</span> endSanity(self):
+                f.close()
+                exit()
+
+        <span class="cmt"># this method stores a username and password
+</span>        <span class="kw">def</span> getUserAndPass(self):
+                <span class="cmt"># store the user's input
+</span>                self.user = <span class="skw">input</span>(<span class="str">"Enter username to test with."</span>).strip()
+                self.password = <span class="skw">input</span>(<span class="str">"Enter password."</span>).strip()
+
+        <span class="cmt"># this method stores the text from a textbox
+</span>        <span class="kw">def</span> getTextFromTextBox(self):
+                <span class="cmt"># select and copy the test
+</span>                <span class="skw">type</span>(<span class="str">"a"</span>, KEY_CTRL)
+                <span class="skw">type</span>(<span class="str">"c"</span>, KEY_CTRL)
+
+                <span class="cmt"># return the selected text
+</span>                <span class="kw">return</span> Env.getClipboard().strip()
+
+        <span class="cmt"># this method stores the current time to time a test
+</span>        <span class="kw">def</span> startTimer(self):
+                <span class="cmt"># store the current time
+</span>                self.startOfTimer = datetime.datetime.now()
+
+        <span class="cmt"># this method stores the current time and
+</span>        <span class="cmt"># returns the time a test took to complete
+</span>        <span class="kw">def</span> stopTimer(self):
+                <span class="cmt"># get the current time
+</span>                self.endOfTimer = datetime.datetime.now()
+
+        <span class="cmt"># this method returns the time a test took
+</span>        <span class="cmt"># to complete
+</span>        <span class="kw">def</span> timerDiff(self):
+
+                <span class="cmt"># return the difference of the timers
+</span>                <span class="kw">return</span> str(self.endOfTimer - self.startOfTimer)
+
+        <span class="cmt"># this method will wait for an image to appear and
+</span>        <span class="cmt"># wait a given amount of time before checking again
+</span>        <span class="kw">def</span> myWaitUntil(img, tstep = <span class="dig">.1</span>, nMax = <span class="dig">90</span>,msg=None):  <span class="cmt"># waits for defaults to find an image</span>
+                found = False
+
+                <span class="cmt"># loop through the check a given amount of
+</span>                <span class="cmt"># times to see if the image has appeared
+</span>                <span class="kw">for</span> i <span class="kw">in</span> range(nMax):
+
+                        <span class="cmt"># if found then break out of
+</span>                        <span class="cmt"># the loop and return true
+</span>                        <span class="kw">if</span> exists(img, <span class="dig">0</span>) != None:
+                                found = True
+                                <span class="kw">break</span>
+
+                        <span class="cmt"># wait a given amount of time between
+</span>                        <span class="cmt"># each iteration of the loop
+</span>                        <span class="skw">wait</span>(tstep)
+
+                <span class="cmt"># return whether or not the image was found
+</span>                <span class="kw">return</span> found
+
+        <span class="cmt"># this method will wait for an image to disappear and
+</span>        <span class="cmt"># wait a given amount of time before checking again
+</span>        <span class="kw">def</span> imageGone(img=<span class="str">""</span>, tstep = <span class="dig">1</span>, nMax = <span class="dig">90</span>):  <span class="cmt">#look for a change on the screen</span>
+                counter = <span class="dig">0</span>
+                gone = False
+
+           <span class="cmt"># loop through the check to see if the
+</span>           <span class="cmt"># image is gone
+</span>                <span class="kw">for</span> i <span class="kw">in</span> range(nMax):
+
+                        <span class="cmt"># if the image is gone increase the counter
+</span>                        <span class="kw">if</span> exists(img, <span class="dig">0</span>)  == None:
+                                counter = counter+<span class="dig">1</span>
+
+                                <span class="cmt"># return true after the image has been
+</span>                                <span class="cmt"># gone for 2 iterations
+</span>                                <span class="kw">if</span> counter == <span class="dig">2</span>:
+                                        gone = True
+                                        <span class="kw">break</span>
+
+                                <span class="cmt"># wait a given amount of time between
+</span>                                <span class="cmt"># each iteration
+</span>                <span class="skw">wait</span>(tstep)
+
+        <span class="cmt"># return whether or not the image is gone
+</span>                <span class="kw">return</span> gone
+
+        <span class="cmt"># this method will determine whether or not to
+</span>        <span class="cmt"># terminate the test after an error
+</span>        <span class="kw">def</span> handleFindFailds(self,test):
+                <span class="cmt"># if the number of fails is less than the limit
+</span>                <span class="cmt"># then print a message to the console
+</span>                <span class="kw">if</span> self.findFaildsCounter &lt; self.findFaildsLimit:
+                        failure = str(sys.exc_info())
+                        myMessage = <span class="str">"My Message "</span> + failure
+                        <span class="kw">print</span>(myMessage)
+                        <span class="cmt">#failed(test)
+</span>                        <span class="cmt">#findFaildsCounter = findFaildsCounter + 1
+</span>
+                <span class="cmt"># if the fail count is greater than the limit
+</span>                <span class="cmt"># then log it and terminate the test
+</span>                <span class="kw">else</span>:
+                        <span class="skw">input</span>(<span class="str">"Critical Error(s) have occurred @ test "</span> + test + <span class="str">" Script is stopping."</span>)
+                        self.endSanity()
+
+        <span class="cmt"># this method opens internet explorer
+</span>        <span class="kw">def</span> openIE(self):
+                test = <span class="str">"IE Opened"</span>
+                path = self.ie
+                <span class="kw">if</span> path == <span class="str">""</span>:
+                        path = <span class="str">"C:\\Program Files\\Internet Explorer\\iexplore.exe"</span>
+                openApp(path)
+
+        <span class="kw">def</span> openFirefox(self):
+                test = <span class="str">"Firefox Opened"</span>
+                path = self.firefox
+                <span class="kw">if</span> path == <span class="str">""</span>:
+                        path = <span class="str">"C:\\Program Files\\Mozilla Firefox\\firefox.exe"</span>
+                openApp(path)
+
+        <span class="cmt"># this method will insert a new URL
+</span>        <span class="kw">def</span> inputUrl(self,site=<span class="str">""</span>):
+                <span class="skw">wait</span>(<span class="dig">4</span>)
+
+                <span class="cmt"># simulate keystrokes
+</span>                <span class="skw">type</span>(<span class="str">" "</span>,KEY_ALT)
+                <span class="skw">wait</span>(<span class="dig">1</span>)
+                <span class="skw">type</span>(<span class="str">"x"</span>)
+                <span class="skw">wait</span>(<span class="dig">1</span>)
+                <span class="skw">type</span>(<span class="str">"d"</span>,KEY_ALT)
+                <span class="skw">wait</span>(<span class="dig">1</span>)
+                <span class="kw">if</span> site==<span class="str">""</span>:
+                        site=self.site
+                <span class="cmt"># paste in the URL
+</span>                paste(site)
+                <span class="skw">type</span>(Key.ENTER)
+                <span class="kw">print</span> site
+
+        <span class="cmt"># this method will create a new directory
+</span>        <span class="cmt"># example: newPath = "C:\\Documents and Settings\\RLevell\\Desktop\\sikuli_test"
+</span>        <span class="kw">def</span> createDirectory(self,path):
+                os.makedirs(path)
+
+        <span class="cmt"># this method will open and run fiddler
+</span>        <span class="kw">def</span> runFiddler(self,scenario):
+
+                <span class="cmt"># try to open fiddler
+</span>                <span class="kw">try</span>:
+                                subprocess.call(<span class="str">"C:\\Program Files\\Fiddler2/ExecAction.exe \"sikuli "</span> + scenario +<span class="str">"\""</span>)
+                                <span class="kw">print</span>(<span class="str">"wrote "</span> + scenario + <span class="str">" scenario fiddler info to file."</span> )
+
+                <span class="cmt"># end the test if not opened successfully
+</span>                <span class="kw">except</span> FindFailed:
+                        self.criticalError(test)
+
+        <span class="kw">def</span> closeBrowser(self):
+                <span class="skw">type</span>(Key.F4,KEY_ALT)
+
+<span class="cmt"># tests
+</span><span class="cmt">#x = util()
+</span><span class="cmt">#x.openFirefox()
+</span><span class="cmt">#wait(5)
+</span><span class="cmt">#x.closeBrowser()
+</span><span class="cmt">#x.runFiddler("test")
+</span><span class="cmt">#x.passed("test002","comment2")
+</span><span class="cmt">#x.inputUrl("www.yahoo.com")
+</span><span class="cmt">#print x.termsArr[3]
+</span><span class="cmt">#print x.findFaildsLimit
+</span><span class="cmt">#x.getUserAndPass()
+</span><span class="cmt">#print x.user</span>
+</pre>
+</body>
+</html>

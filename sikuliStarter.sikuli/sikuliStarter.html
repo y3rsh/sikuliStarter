@@ -70,6 +70,7 @@
 <h2>sikuliStarter.sikuli\sikuliStarter.sikuli</h2> <a href="sikuliStarter.sikuli\sikuliStarter.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
+<<<<<<< HEAD
 <span class="kw">import</span> subprocess
 <span class="kw">import</span> datetime
 <span class="kw">import</span> os
@@ -368,6 +369,21 @@ password = <span class="str">""</span>
         <span class="cmt"># end the test if not opened successfully
 </span>        <span class="kw">except</span> FindFailed:
                 criticalError(test)
+=======
+<span class="kw">from</span> sikuli.Sikuli <span class="kw">import</span> *
+ <span class="cmt"># works on all platforms
+</span><span class="kw">import</span> os
+<span class="kw">import</span> re
+<span class="cmt"># get the directory containing your running .sikuli
+</span>myPath = os.path.dirname(getBundlePath())
+<span class="kw">if</span> <span class="kw">not</span> myPath <span class="kw">in</span> sys.path: sys.path.append(myPath)
+
+<span class="cmt"># now you can import every .sikuli in the same directory
+</span><span class="cmt">#import util
+</span><span class="kw">from</span> util <span class="kw">import</span> *
+u = util()
+paste(u.termsArr[<span class="dig">0</span>])
+>>>>>>> c9d6d4fd0ac25222db984baaefd2c1839dff9790
 </pre>
 </body>
 </html>

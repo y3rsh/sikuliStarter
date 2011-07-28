@@ -1,28 +1,27 @@
 from sikuli.Sikuli import *
-from util import *
+import os
+myPath = os.path.dirname(getBundlePath())
+if not myPath in sys.path: sys.path.append(myPath)
 from groovesharkTestImages import *
+from util import *
 
-class groovesharkTest:
-
+class groovesharkTest(util):
+	u = util
 	myImages = groovesharkTestImages()
-	myUtil = util()
-
-	def openGrooveshark(self):
-		self.myUtil.openFirefox()
-		self.myUtil.inputUrl("http://grooveshark.com/")
-		wait(4)
-
 	def clickFavorites(self):
-		click(self.myImages.getImage("favorites"))
+		reg = Region(1089,0,591,745)
+		reg.click(self.myImages.getImage("favorites"))
 		wait(2)
 
 	def login(self,user,pw):
-		click(self.myImages.getImage("login"))
-		click(self.myImages.getImage("username"))
+		reg = Region(1089,0,591,745)
+		reg.click(self.myImages.getImage("login")) 
+		wait(2)
 		type(user)
-		click(self.myImages.getImage("password"))
+		type(Key.TAB)
 		type(pw)
-		click(self.myImages.getImage("loginButton"))
+		type(Key.TAB)
+		type(Key.ENTER)
 		wait(4)
 
 	def playSong(self,image):
@@ -61,9 +60,7 @@ class groovesharkTest:
 		click(self.myImages.getImage("logout"))
 		wait(1)
 
-	def closeGrooveshark(self):
-		self.myUtil.closeBrowser()
-
 	
+
 
 	

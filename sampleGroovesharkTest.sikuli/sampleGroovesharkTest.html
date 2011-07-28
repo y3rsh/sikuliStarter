@@ -81,7 +81,8 @@ myPath = os.path.dirname(getBundlePath())
 <span class="kw">from</span> groovesharkTest <span class="kw">import</span> *
 
 <span class="cmt"># instantiate the classes
-</span>u = util()
+</span>
+u = util()
 g = groovesharkTest()
 <span class="cmt"># this class is imported from grooveSharkTest so it didn't need imported again
 </span>i = groovesharkTestImages()
@@ -92,7 +93,9 @@ g = groovesharkTest()
 <span class="cmt"># use try/except to determine whether a part of the test passed or failed
 </span><span class="kw">try</span>:
         <span class="cmt"># open the music player GrooveShark
-</span>        g.openGrooveshark()
+</span>        u.openFirefox()
+        u.inputUrl(<span class="str">"http://grooveshark.com/"</span>)
+        <span class="skw">wait</span>(<span class="dig">4</span>)
         <span class="cmt"># if opened correctly pass this section of the test
 </span>        <span class="cmt"># a screenshot is taken and a log file is updated with a "passed"
 </span>        u.passed(<span class="str">"openGrooveshark"</span>)
@@ -175,11 +178,11 @@ g = groovesharkTest()
 <span class="kw">except</span> FindFailed:
         u.failed(<span class="str">"logout"</span>)
 
-        g.closeGrooveshark()
-        u.passed(<span class="str">"close"</span>)
-
+u.closeBrowser()
+u.passed(<span class="str">"close"</span>)
 <span class="cmt"># done
-</span><span class="kw">print</span> <span class="str">"TEST COMPLETE"</span>
+</span><span class="kw">print</span>(<span class="str">"TEST COMPLETE"</span>)
+exit()
 </pre>
 </body>
 </html>

@@ -78,13 +78,15 @@
 <span class="kw">import</span> traceback
 <span class="kw">import</span> sys
 <span class="kw">import</span> ConfigParser
+myPath = os.path.dirname(getBundlePath())
+<span class="kw">if</span> <span class="kw">not</span> myPath <span class="kw">in</span> sys.path: sys.path.append(myPath)
 
 <span class="kw">class</span> util:
 
         <span class="kw">def</span> __init__(self):
                 <span class="cmt"># read the config file and get the variables
 </span>                config = ConfigParser.ConfigParser()
-                config.read(<span class="str">"C:\\sikuli\\sikuliStarter\\config\\config.txt"</span>)
+                config.read(<span class="str">'C:\\sikuli\\config\\config.txt'</span>)
 
                 <span class="cmt"># grab each variable seperately
 </span>                self.findFaildsCounter = int(config.get(<span class="str">"vars"</span>,<span class="str">"failCount"</span>))
@@ -103,14 +105,14 @@
                 self.delim = <span class="str">","</span>
 
                 <span class="cmt"># create new directory
-</span>                self.folder = <span class="str">"C:\\sikuli\\sikuliStarter\\logs\\"</span>+self.timeStamp()
+</span>                self.folder = <span class="str">"C:\\sikuli\\logs\\"</span>+self.timeStamp()
                 self.createDirectory(self.folder)
                 self.csvPath = self.folder+<span class="str">"\\logFile.txt"</span>
                 self.imagePath = self.folder
 
                 <span class="cmt"># read the data file and get the variables
 </span>                data = ConfigParser.ConfigParser()
-                data.read(<span class="str">"C:\\sikuli\\sikuliStarter\\testData\\testdata.txt"</span>)
+                data.read(<span class="str">"C:\\sikuli\\testData\\testdata.txt"</span>)
 
                 <span class="cmt"># grab the terms string and seperate them into an array
 </span>                self.termsArr = data.get(<span class="str">"terms"</span>,<span class="str">"term"</span>).split(<span class="str">","</span>)

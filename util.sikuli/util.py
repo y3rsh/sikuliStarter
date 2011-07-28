@@ -6,13 +6,15 @@ import shutil
 import traceback
 import sys
 import ConfigParser
+myPath = os.path.dirname(getBundlePath())
+if not myPath in sys.path: sys.path.append(myPath)
 
 class util:
 
 	def __init__(self):
 		# read the config file and get the variables
 		config = ConfigParser.ConfigParser()
-		config.read("C:\\sikuli\\sikuliStarter\\config\\config.txt")
+		config.read('C:\\sikuli\\config\\config.txt')
 
 		# grab each variable seperately
 		self.findFaildsCounter = int(config.get("vars","failCount"))
@@ -31,14 +33,14 @@ class util:
 		self.delim = ","
 
 		# create new directory
-		self.folder = "C:\\sikuli\\sikuliStarter\\logs\\"+self.timeStamp()
+		self.folder = "C:\\sikuli\\logs\\"+self.timeStamp()
 		self.createDirectory(self.folder)
 		self.csvPath = self.folder+"\\logFile.txt"
 		self.imagePath = self.folder
 
 		# read the data file and get the variables
 		data = ConfigParser.ConfigParser()
-		data.read("C:\\sikuli\\sikuliStarter\\testData\\testdata.txt")
+		data.read("C:\\sikuli\\testData\\testdata.txt")
 
 		# grab the terms string and seperate them into an array
 		self.termsArr = data.get("terms","term").split(",")

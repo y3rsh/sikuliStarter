@@ -78,14 +78,14 @@
 
         <span class="kw">def</span> __init__(self):
                 self.imgDict = {}
-                self.addImage(<span class="str">"login"</span>,<img src="login.png" />)
+                self.addImage(<span class="str">"login"</span>,Pattern(<img src="namEMembermg.png" />).targetOffset(<span class="dig">1</span>,-<span class="dig">2</span>))
                 self.addImage(<span class="str">"myMusic"</span>,<img src="myMusic.png" />)
                 self.addImage(<span class="str">"playSong"</span>,<img src="playSong.png" />)
                 self.addImage(<span class="str">"playAll"</span>,<img src="playAll.png" />)
                 self.addImage(<span class="str">"favorites"</span>,<img src="favorites.png" />)
-                self.addImage(<span class="str">"username"</span>,<img src="username.png" />)
-                self.addImage(<span class="str">"password"</span>,<img src="password.png" />)
-                self.addImage(<span class="str">"loginButton"</span>,<img src="loginButton.png" />)
+                self.addImage(<span class="str">"username"</span>,Pattern(<img src="BecomeaMembe-1.png" />).similar(<span class="dig">0.90</span>).targetOffset(-<span class="dig">124</span>,<span class="dig">56</span>))
+                self.addImage(<span class="str">"password"</span>,Pattern(<img src="imammeLoginw.png" />).similar(<span class="dig">0.58</span>).targetOffset(-<span class="dig">120</span>,-<span class="dig">64</span>))
+                self.addImage(<span class="str">"loginButton"</span>,Pattern(<img src="imammeLoginw.png" />).targetOffset(-<span class="dig">116</span>,-<span class="dig">20</span>))
                 self.addImage(<span class="str">"addSong"</span>,<img src="addSong.png" />)
                 self.addImage(<span class="str">"removePlaylist"</span>,<img src="removePlaylist.png" />)
                 self.addImage(<span class="str">"accountButton"</span>,<img src="accountButton.png" />)

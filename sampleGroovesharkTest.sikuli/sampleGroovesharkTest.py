@@ -9,6 +9,7 @@ from util import *
 from groovesharkTest import *
 
 # instantiate the classes
+
 u = util()
 g = groovesharkTest()
 # this class is imported from grooveSharkTest so it didn't need imported again
@@ -20,7 +21,9 @@ count = 2
 # use try/except to determine whether a part of the test passed or failed
 try:
 	# open the music player GrooveShark
-	g.openGrooveshark()
+	u.openFirefox()
+	u.inputUrl("http://grooveshark.com/")
+	wait(4)
 	# if opened correctly pass this section of the test
 	# a screenshot is taken and a log file is updated with a "passed"
 	u.passed("openGrooveshark")
@@ -103,8 +106,9 @@ try:
 except FindFailed:
 	u.failed("logout")
 
-	g.closeGrooveshark()
-	u.passed("close")
-
+u.closeBrowser()
+u.passed("close")
 # done
-print "TEST COMPLETE"
+print("TEST COMPLETE")
+exit()
+

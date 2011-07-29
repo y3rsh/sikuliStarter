@@ -10,7 +10,6 @@ from groovesharkTest import *
 
 # instantiate the classes
 
-u = util()
 g = groovesharkTest()
 # this class is imported from grooveSharkTest so it didn't need imported again
 i = groovesharkTestImages()
@@ -21,70 +20,70 @@ count = 2
 # use try/except to determine whether a part of the test passed or failed
 try:
 	# open the music player GrooveShark
-	u.openFirefox()
-	u.inputUrl("http://grooveshark.com/")
-	wait(4)
+	g.openFirefox()
+	g.inputUrl("http://grooveshark.com/")
+	wait(7)
 	# if opened correctly pass this section of the test
 	# a screenshot is taken and a log file is updated with a "passed"
-	u.passed("openGrooveshark")
+	g.passed("openGrooveshark")
 # if an image was not found by Sikuli then catch the exception
 # and fail the test
 except FindFailed:
 	# a screenshot is taken and a log file is updated with a "failed"
-	u.failed("openGrooveshark")
+	g.failed("openGrooveshark")
 
 try:
 	# log into the application using the first 2 terms of the testdata array
 	# which are valid credentials for this site
-	g.login(u.termsArr[0],u.termsArr[1])
-	u.passed("login")
+	g.login(g.termsArr[0],g.termsArr[1])
+	g.passed("login")
 except FindFailed:
-	u.failed("login")
+	g.failed("login")
 
 try:
 	# click the favorites tab
 	g.clickFavorites()
-	u.passed("favorites")
+	g.passed("favorites")
 except FindFailed:
-	u.failed("favorites")
+	g.failed("favorites")
 
 try:
 	# play all of the songs in the favorites playlist
 	g.playAll()
-	u.passed("playAll")
+	g.passed("playAll")
 except FindFailed:
-	u.failed("playAll")
+	g.failed("playAll")
 
 try:
 	# see all the music that has been added
 	g.seeAllMusic()
-	u.passed("allMusic")
+	g.passed("allMusic")
 except FindFailed:
-	u.failed("allMusic")
+	g.failed("allMusic")
 
 try:
 	# add a song to the playlist
 	g.addSong(i.getImage("unwellSong"))
-	u.passed("addSong")
+	g.passed("addSong")
 	wait(2)
 except FindFailed:
-	u.failed("addSong")
+	g.failed("addSong")
 
 # start loops to search for new artists
-while(count < len(u.termsArr)):
+while(count < len(g.termsArr)):
 	try:
 		# use terms from the testdata array
-		g.searchForMusic(u.termsArr[count])
-		u.passed("searchMusic")
+		g.searchForMusic(g.termsArr[count])
+		g.passed("searchMusic")
 	except FindFailed:
-		u.failed("searchMusic")
+		g.failed("searchMusic")
 
 	try:
 		# play all from the artist that is searched
 		g.playAll()
-		u.passed("playAll")
+		g.passed("playAll")
 	except FindFailed:
-		u.failed("playAll")
+		g.failed("playAll")
 
 	# increment count iterate over the terms and end the loop
 	count = count + 1
@@ -95,19 +94,19 @@ wait(10)
 try:
 	# clear the playlist
 	g.clearPlaylist()
-	u.passed("clearList")
+	g.passed("clearList")
 except FindFailed:
-	u.failed("clearList")
+	g.failed("clearList")
 
 try:
 	# log out of the application
 	g.logoutGrooveshark()
-	u.passed("logout")
+	g.passed("logout")
 except FindFailed:
-	u.failed("logout")
+	g.failed("logout")
 
-u.closeBrowser()
-u.passed("close")
+g.closeBrowser()
+g.passed("close")
 # done
 print("TEST COMPLETE")
 exit()

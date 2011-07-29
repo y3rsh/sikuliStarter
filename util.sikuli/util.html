@@ -103,7 +103,7 @@ myPath = os.path.dirname(getBundlePath())
                 self.user = <span class="str">""</span>
                 self.password = <span class="str">""</span>
                 self.delim = <span class="str">","</span>
-
+                self.reg = (<span class="dig">0</span>,<span class="dig">0</span>,self.screenWidth,self.screenHeight)
                 <span class="cmt"># create new directory
 </span>                self.folder = <span class="str">"C:\\sikuli\\logs\\"</span>+self.timeStamp()
                 self.createDirectory(self.folder)
@@ -316,9 +316,11 @@ myPath = os.path.dirname(getBundlePath())
         <span class="kw">def</span> openFirefox(self):
                 test = <span class="str">"Firefox Opened"</span>
                 path = self.firefox
+                <span class="kw">print</span>(<span class="str">"path = "</span> + path)
                 <span class="kw">if</span> path == <span class="str">""</span>:
-                        path = <span class="str">"C:\\Program Files\\Mozilla Firefox\\firefox.exe"</span>
+                        path = <span class="str">"c:\\Program Files\\Mozilla Firefox\\firefox.exe"</span>
                 openApp(path)
+
 
         <span class="cmt"># this method will insert a new URL
 </span>        <span class="kw">def</span> inputUrl(self,site=<span class="str">""</span>):

@@ -76,18 +76,18 @@ myPath = os.path.dirname(getBundlePath())
 <span class="kw">if</span> <span class="kw">not</span> myPath <span class="kw">in</span> sys.path: sys.path.append(myPath)
 <span class="kw">from</span> groovesharkTestImages <span class="kw">import</span> *
 <span class="kw">from</span> util <span class="kw">import</span> *
+<span class="kw">from</span> regionDictionary <span class="kw">import</span> *
 
 <span class="kw">class</span> groovesharkTest(util):
-        u = util
         myImages = groovesharkTestImages()
         <span class="kw">def</span> clickFavorites(self):
-                reg = Region(<span class="dig">1089</span>,<span class="dig">0</span>,<span class="dig">591</span>,<span class="dig">745</span>)
-                reg.<span class="skw">click</span>(self.myImages.getImage(<span class="str">"favorites"</span>))
+
+                reg.getReg(<span class="str">"leftHalf"</span>).<span class="skw">click</span>(self.myImages.getImage(<span class="str">"favorites"</span>))
                 <span class="skw">wait</span>(<span class="dig">2</span>)
 
         <span class="kw">def</span> login(self,user,pw):
-                reg = Region(<span class="dig">1089</span>,<span class="dig">0</span>,<span class="dig">591</span>,<span class="dig">745</span>)
-                reg.<span class="skw">click</span>(self.myImages.getImage(<span class="str">"login"</span>))
+
+                reg.getReg(<span class="str">"rightHalf"</span>).<span class="skw">click</span>(self.myImages.getImage(<span class="str">"login"</span>))
                 <span class="skw">wait</span>(<span class="dig">2</span>)
                 <span class="skw">type</span>(user)
                 <span class="skw">type</span>(Key.TAB)

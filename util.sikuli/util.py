@@ -8,6 +8,7 @@ import sys
 import ConfigParser
 myPath = os.path.dirname(getBundlePath())
 if not myPath in sys.path: sys.path.append(myPath)
+from regionDictionary import *
 
 class util:
 
@@ -31,7 +32,8 @@ class util:
 		self.user = ""
 		self.password = ""
 		self.delim = ","
-
+		#create region dictionary
+		self.reg = regionDictionary(self.screenWidth,self.screenHeight)
 		# create new directory
 		self.folder = "C:\\sikuli\\logs\\"+self.timeStamp()
 		self.createDirectory(self.folder)
@@ -49,7 +51,7 @@ class util:
 	# this method returns a time stamp
 	def timeStamp(self):
 	        return datetime.datetime.now().strftime(self.dateFormatString)
-	
+			
 	# this method is used to terminate the test when
 	# an error is too critical to continue
 	def criticalError(self,test):
@@ -244,12 +246,14 @@ class util:
 	def openFirefox(self):
 	        test = "Firefox Opened"
 	        path = self.firefox
+	        print("path = " + path)
 	        if path == "":
-	        	path = "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+	        	path = "c:\\Program Files\\Mozilla Firefox\\firefox.exe"
 	        openApp(path)
+
 	
 	# this method will insert a new URL
-	def inputUrl(self,site=""):
+	def inputUrl(self,site="whyyounoenterurl?"):
 	        wait(4)
 	
 	        # simulate keystrokes
@@ -286,15 +290,3 @@ class util:
 	def closeBrowser(self):
 		type(Key.F4,KEY_ALT)
 
-# tests
-#x = util()
-#x.openFirefox()
-#wait(5)
-#x.closeBrowser()
-#x.runFiddler("test")
-#x.passed("test002","comment2")
-#x.inputUrl("www.yahoo.com")
-#print x.termsArr[3]
-#print x.findFaildsLimit
-#x.getUserAndPass()
-#print x.user

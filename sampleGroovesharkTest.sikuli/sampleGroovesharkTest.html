@@ -82,7 +82,6 @@ myPath = os.path.dirname(getBundlePath())
 
 <span class="cmt"># instantiate the classes
 </span>
-u = util()
 g = groovesharkTest()
 <span class="cmt"># this class is imported from grooveSharkTest so it didn't need imported again
 </span>i = groovesharkTestImages()
@@ -93,70 +92,70 @@ g = groovesharkTest()
 <span class="cmt"># use try/except to determine whether a part of the test passed or failed
 </span><span class="kw">try</span>:
         <span class="cmt"># open the music player GrooveShark
-</span>        u.openFirefox()
-        u.inputUrl(<span class="str">"http://grooveshark.com/"</span>)
-        <span class="skw">wait</span>(<span class="dig">4</span>)
+</span>        g.openFirefox()
+        g.inputUrl(<span class="str">"http://grooveshark.com/"</span>)
+        <span class="skw">wait</span>(<span class="dig">7</span>)
         <span class="cmt"># if opened correctly pass this section of the test
 </span>        <span class="cmt"># a screenshot is taken and a log file is updated with a "passed"
-</span>        u.passed(<span class="str">"openGrooveshark"</span>)
+</span>        g.passed(<span class="str">"openGrooveshark"</span>)
 <span class="cmt"># if an image was not found by Sikuli then catch the exception
 </span><span class="cmt"># and fail the test
 </span><span class="kw">except</span> FindFailed:
         <span class="cmt"># a screenshot is taken and a log file is updated with a "failed"
-</span>        u.failed(<span class="str">"openGrooveshark"</span>)
+</span>        g.failed(<span class="str">"openGrooveshark"</span>)
 
 <span class="kw">try</span>:
         <span class="cmt"># log into the application using the first 2 terms of the testdata array
 </span>        <span class="cmt"># which are valid credentials for this site
-</span>        g.login(u.termsArr[<span class="dig">0</span>],u.termsArr[<span class="dig">1</span>])
-        u.passed(<span class="str">"login"</span>)
+</span>        g.login(g.termsArr[<span class="dig">0</span>],g.termsArr[<span class="dig">1</span>])
+        g.passed(<span class="str">"login"</span>)
 <span class="kw">except</span> FindFailed:
-        u.failed(<span class="str">"login"</span>)
+        g.failed(<span class="str">"login"</span>)
 
 <span class="kw">try</span>:
         <span class="cmt"># click the favorites tab
 </span>        g.clickFavorites()
-        u.passed(<span class="str">"favorites"</span>)
+        g.passed(<span class="str">"favorites"</span>)
 <span class="kw">except</span> FindFailed:
-        u.failed(<span class="str">"favorites"</span>)
+        g.failed(<span class="str">"favorites"</span>)
 
 <span class="kw">try</span>:
         <span class="cmt"># play all of the songs in the favorites playlist
 </span>        g.playAll()
-        u.passed(<span class="str">"playAll"</span>)
+        g.passed(<span class="str">"playAll"</span>)
 <span class="kw">except</span> FindFailed:
-        u.failed(<span class="str">"playAll"</span>)
+        g.failed(<span class="str">"playAll"</span>)
 
 <span class="kw">try</span>:
         <span class="cmt"># see all the music that has been added
 </span>        g.seeAllMusic()
-        u.passed(<span class="str">"allMusic"</span>)
+        g.passed(<span class="str">"allMusic"</span>)
 <span class="kw">except</span> FindFailed:
-        u.failed(<span class="str">"allMusic"</span>)
+        g.failed(<span class="str">"allMusic"</span>)
 
 <span class="kw">try</span>:
         <span class="cmt"># add a song to the playlist
 </span>        g.addSong(i.getImage(<span class="str">"unwellSong"</span>))
-        u.passed(<span class="str">"addSong"</span>)
+        g.passed(<span class="str">"addSong"</span>)
         <span class="skw">wait</span>(<span class="dig">2</span>)
 <span class="kw">except</span> FindFailed:
-        u.failed(<span class="str">"addSong"</span>)
+        g.failed(<span class="str">"addSong"</span>)
 
 <span class="cmt"># start loops to search for new artists
-</span><span class="kw">while</span>(count &lt; len(u.termsArr)):
+</span><span class="kw">while</span>(count &lt; len(g.termsArr)):
         <span class="kw">try</span>:
                 <span class="cmt"># use terms from the testdata array
-</span>                g.searchForMusic(u.termsArr[count])
-                u.passed(<span class="str">"searchMusic"</span>)
+</span>                g.searchForMusic(g.termsArr[count])
+                g.passed(<span class="str">"searchMusic"</span>)
         <span class="kw">except</span> FindFailed:
-                u.failed(<span class="str">"searchMusic"</span>)
+                g.failed(<span class="str">"searchMusic"</span>)
 
         <span class="kw">try</span>:
                 <span class="cmt"># play all from the artist that is searched
 </span>                g.playAll()
-                u.passed(<span class="str">"playAll"</span>)
+                g.passed(<span class="str">"playAll"</span>)
         <span class="kw">except</span> FindFailed:
-                u.failed(<span class="str">"playAll"</span>)
+                g.failed(<span class="str">"playAll"</span>)
 
         <span class="cmt"># increment count iterate over the terms and end the loop
 </span>        count = count + <span class="dig">1</span>
@@ -167,19 +166,19 @@ g = groovesharkTest()
 <span class="kw">try</span>:
         <span class="cmt"># clear the playlist
 </span>        g.clearPlaylist()
-        u.passed(<span class="str">"clearList"</span>)
+        g.passed(<span class="str">"clearList"</span>)
 <span class="kw">except</span> FindFailed:
-        u.failed(<span class="str">"clearList"</span>)
+        g.failed(<span class="str">"clearList"</span>)
 
 <span class="kw">try</span>:
         <span class="cmt"># log out of the application
 </span>        g.logoutGrooveshark()
-        u.passed(<span class="str">"logout"</span>)
+        g.passed(<span class="str">"logout"</span>)
 <span class="kw">except</span> FindFailed:
-        u.failed(<span class="str">"logout"</span>)
+        g.failed(<span class="str">"logout"</span>)
 
-u.closeBrowser()
-u.passed(<span class="str">"close"</span>)
+g.closeBrowser()
+g.passed(<span class="str">"close"</span>)
 <span class="cmt"># done
 </span><span class="kw">print</span>(<span class="str">"TEST COMPLETE"</span>)
 exit()

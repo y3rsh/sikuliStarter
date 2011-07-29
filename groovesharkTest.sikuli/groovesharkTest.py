@@ -10,7 +10,7 @@ class groovesharkTest(util):
 	myImages = groovesharkTestImages()
 	def clickFavorites(self):
 		
-		self.reg.getReg("leftHalf").click(self.myImages.getImage("favorites"))
+		self.reg.getReg("ne").click(self.myImages.getImage("favorites"))
 		wait(2)
 
 	def login(self,user,pw):
@@ -65,6 +65,7 @@ class groovesharkTest(util):
 		click(self.myImages.getImage("logout"))
 		wait(1)
 
+g = groovesharkTest()
 
 
 

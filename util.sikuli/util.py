@@ -16,7 +16,7 @@ class util:
 		# read the config file and get the variables
 		config = ConfigParser.ConfigParser()
 		config.read('C:\\sikuli\\config\\config.txt')
-
+			
 		# grab each variable seperately
 		self.findFaildsCounter = int(config.get("vars","failCount"))
 		self.findFaildsLimit = int(config.get("vars","failLimit"))
@@ -46,7 +46,10 @@ class util:
 
 		# grab the terms string and seperate them into an array
 		self.termsArr = data.get("terms","term").split(",")
-
+		self.usersArr = data.get("terms","users").split(",")
+		self.paswordsArr = data.get("terms","passwords").split(",")
+		for i in self.usersArr:
+			print i
 
 	# this method returns a time stamp
 	def timeStamp(self):

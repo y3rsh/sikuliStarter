@@ -80,6 +80,7 @@
 <span class="kw">import</span> ConfigParser
 myPath = os.path.dirname(getBundlePath())
 <span class="kw">if</span> <span class="kw">not</span> myPath <span class="kw">in</span> sys.path: sys.path.append(myPath)
+<span class="kw">from</span> regionDictionary <span class="kw">import</span> *
 
 <span class="kw">class</span> util:
 
@@ -87,6 +88,11 @@ myPath = os.path.dirname(getBundlePath())
                 <span class="cmt"># read the config file and get the variables
 </span>                config = ConfigParser.ConfigParser()
                 config.read(<span class="str">'C:\\sikuli\\config\\config.txt'</span>)
+                <span class="cmt"># read json file
+</span>                dataFile = json.load(open(<span class="str">"C:\\sikuli\\testData\\testdata.json"</span>))
+                <span class="kw">for</span> loginPairs, subdict <span class="kw">in</span> dataFile.iteritems():
+                        <span class="kw">print</span> username
+                        <span class="kw">print</span> password
 
                 <span class="cmt"># grab each variable seperately
 </span>                self.findFaildsCounter = int(config.get(<span class="str">"vars"</span>,<span class="str">"failCount"</span>))
@@ -103,7 +109,8 @@ myPath = os.path.dirname(getBundlePath())
                 self.user = <span class="str">""</span>
                 self.password = <span class="str">""</span>
                 self.delim = <span class="str">","</span>
-                self.reg = (<span class="dig">0</span>,<span class="dig">0</span>,self.screenWidth,self.screenHeight)
+                <span class="cmt">#create region dictionary
+</span>                self.reg = regionDictionary(self.screenWidth,self.screenHeight)
                 <span class="cmt"># create new directory
 </span>                self.folder = <span class="str">"C:\\sikuli\\logs\\"</span>+self.timeStamp()
                 self.createDirectory(self.folder)
@@ -116,7 +123,10 @@ myPath = os.path.dirname(getBundlePath())
 
                 <span class="cmt"># grab the terms string and seperate them into an array
 </span>                self.termsArr = data.get(<span class="str">"terms"</span>,<span class="str">"term"</span>).split(<span class="str">","</span>)
-
+                self.usersArr = data.get(<span class="str">"terms"</span>,<span class="str">"users"</span>).split(<span class="str">","</span>)
+                self.paswordsArr = data.get(<span class="str">"terms"</span>,<span class="str">"passwords"</span>).split(<span class="str">","</span>)
+                <span class="kw">for</span> i <span class="kw">in</span> self.userArr.items():
+                        <span class="kw">print</span> self.userArr[i]
 
         <span class="cmt"># this method returns a time stamp
 </span>        <span class="kw">def</span> timeStamp(self):
@@ -323,7 +333,7 @@ myPath = os.path.dirname(getBundlePath())
 
 
         <span class="cmt"># this method will insert a new URL
-</span>        <span class="kw">def</span> inputUrl(self,site=<span class="str">""</span>):
+</span>        <span class="kw">def</span> inputUrl(self,site=<span class="str">"whyyounoenterurl?"</span>):
                 <span class="skw">wait</span>(<span class="dig">4</span>)
 
                 <span class="cmt"># simulate keystrokes
@@ -359,19 +369,6 @@ myPath = os.path.dirname(getBundlePath())
 
         <span class="kw">def</span> closeBrowser(self):
                 <span class="skw">type</span>(Key.F4,KEY_ALT)
-
-<span class="cmt"># tests
-</span><span class="cmt">#x = util()
-</span><span class="cmt">#x.openFirefox()
-</span><span class="cmt">#wait(5)
-</span><span class="cmt">#x.closeBrowser()
-</span><span class="cmt">#x.runFiddler("test")
-</span><span class="cmt">#x.passed("test002","comment2")
-</span><span class="cmt">#x.inputUrl("www.yahoo.com")
-</span><span class="cmt">#print x.termsArr[3]
-</span><span class="cmt">#print x.findFaildsLimit
-</span><span class="cmt">#x.getUserAndPass()
-</span><span class="cmt">#print x.user</span>
 </pre>
 </body>
 </html>

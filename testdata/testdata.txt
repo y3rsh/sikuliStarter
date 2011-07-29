@@ -1,2 +1,4 @@
 [terms]
 term=grooveshark_test,password,metallica,queen
+users=josh,thomas,mcvey
+passwords=12345,12345,12345

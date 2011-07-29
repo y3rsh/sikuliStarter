@@ -1,0 +1,7 @@
+{
+    "loginPairs": [
+      {"username": "josh", "password": "123456"},
+      {"username": "thomas", "password": "123456"},
+      {"username": "mcvey", "password": "123456"}
+    ]
+  }

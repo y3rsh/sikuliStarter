@@ -82,20 +82,22 @@ myPath = os.path.dirname(getBundlePath())
         myImages = groovesharkTestImages()
         <span class="kw">def</span> clickFavorites(self):
 
-                reg.getReg(<span class="str">"leftHalf"</span>).<span class="skw">click</span>(self.myImages.getImage(<span class="str">"favorites"</span>))
+                self.reg.getReg(<span class="str">"ne"</span>).<span class="skw">click</span>(self.myImages.getImage(<span class="str">"favorites"</span>))
                 <span class="skw">wait</span>(<span class="dig">2</span>)
 
         <span class="kw">def</span> login(self,user,pw):
-
-                reg.getReg(<span class="str">"rightHalf"</span>).<span class="skw">click</span>(self.myImages.getImage(<span class="str">"login"</span>))
-                <span class="skw">wait</span>(<span class="dig">2</span>)
-                <span class="skw">type</span>(user)
-                <span class="skw">type</span>(Key.TAB)
-                <span class="skw">type</span>(pw)
-                <span class="skw">type</span>(Key.TAB)
-                <span class="skw">type</span>(Key.ENTER)
-                <span class="skw">wait</span>(<span class="dig">4</span>)
-
+                <span class="kw">try</span>:
+                        self.reg.getReg(<span class="str">"rightHalf"</span>).<span class="skw">click</span>(self.myImages.getImage(<span class="str">"login"</span>))
+                        <span class="skw">wait</span>(<span class="dig">2</span>)
+                        <span class="skw">type</span>(user)
+                        <span class="skw">type</span>(Key.TAB)
+                        <span class="skw">type</span>(pw)
+                        <span class="skw">type</span>(Key.TAB)
+                        <span class="skw">type</span>(Key.ENTER)
+                        <span class="skw">wait</span>(<span class="dig">4</span>)
+                        self.passed(<span class="str">"login"</span>)
+                <span class="kw">except</span> FindFailed:
+                        self.criticalError(<span class="str">"login"</span>)
         <span class="kw">def</span> playSong(self,image):
                 <span class="skw">doubleClick</span>(image)
                 <span class="skw">wait</span>(<span class="dig">1</span>)
@@ -118,19 +120,24 @@ myPath = os.path.dirname(getBundlePath())
                 <span class="skw">wait</span>(<span class="dig">1</span>)
 
         <span class="kw">def</span> searchForMusic(self,term):
-                <span class="skw">click</span>(self.myImages.getImage(<span class="str">"searchButton"</span>))
-                <span class="skw">wait</span>(<span class="dig">1</span>)
-                <span class="skw">click</span>(self.myImages.getImage(<span class="str">"searchButton"</span>))
-                <span class="skw">click</span>(self.myImages.getImage(<span class="str">"darkSearchMusic"</span>))
-                <span class="skw">type</span>(term)
-                <span class="cmt">#click(self.myImages.getImage("searchButton2"))
-</span>                <span class="skw">type</span>(Key.ENTER)
-                <span class="skw">wait</span>(<span class="dig">4</span>)
-
+                <span class="kw">try</span>:
+                        <span class="skw">click</span>(self.myImages.getImage(<span class="str">"searchButton"</span>))
+                        <span class="skw">wait</span>(<span class="dig">1</span>)
+                        <span class="skw">click</span>(self.myImages.getImage(<span class="str">"searchButton"</span>))
+                        <span class="skw">click</span>(self.myImages.getImage(<span class="str">"darkSearchMusic"</span>))
+                        <span class="skw">type</span>(term)
+                        <span class="cmt">#click(self.myImages.getImage("searchButton2"))
+</span>                        <span class="skw">type</span>(Key.ENTER)
+                        <span class="skw">wait</span>(<span class="dig">4</span>)
+                        self.passed(<span class="str">"Music Search"</span>)
+                <span class="kw">except</span> FindFailed:
+                        self.failed(<span class="str">"Music Search"</span>)
         <span class="kw">def</span> logoutGrooveshark(self):
                 <span class="skw">click</span>(self.myImages.getImage(<span class="str">"accountButton"</span>))
                 <span class="skw">click</span>(self.myImages.getImage(<span class="str">"logout"</span>))
                 <span class="skw">wait</span>(<span class="dig">1</span>)
+
+g = groovesharkTest()
 </pre>
 </body>
 </html>

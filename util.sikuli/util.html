@@ -88,11 +88,6 @@ myPath = os.path.dirname(getBundlePath())
                 <span class="cmt"># read the config file and get the variables
 </span>                config = ConfigParser.ConfigParser()
                 config.read(<span class="str">'C:\\sikuli\\config\\config.txt'</span>)
-                <span class="cmt"># read json file
-</span>                dataFile = json.load(open(<span class="str">"C:\\sikuli\\testData\\testdata.json"</span>))
-                <span class="kw">for</span> loginPairs, subdict <span class="kw">in</span> dataFile.iteritems():
-                        <span class="kw">print</span> username
-                        <span class="kw">print</span> password
 
                 <span class="cmt"># grab each variable seperately
 </span>                self.findFaildsCounter = int(config.get(<span class="str">"vars"</span>,<span class="str">"failCount"</span>))
@@ -125,8 +120,8 @@ myPath = os.path.dirname(getBundlePath())
 </span>                self.termsArr = data.get(<span class="str">"terms"</span>,<span class="str">"term"</span>).split(<span class="str">","</span>)
                 self.usersArr = data.get(<span class="str">"terms"</span>,<span class="str">"users"</span>).split(<span class="str">","</span>)
                 self.paswordsArr = data.get(<span class="str">"terms"</span>,<span class="str">"passwords"</span>).split(<span class="str">","</span>)
-                <span class="kw">for</span> i <span class="kw">in</span> self.userArr.items():
-                        <span class="kw">print</span> self.userArr[i]
+                <span class="kw">for</span> i <span class="kw">in</span> self.usersArr:
+                        <span class="kw">print</span> i
 
         <span class="cmt"># this method returns a time stamp
 </span>        <span class="kw">def</span> timeStamp(self):
@@ -210,10 +205,6 @@ myPath = os.path.dirname(getBundlePath())
                 <span class="cmt"># save the screenshot to the specified directory
 </span>                shutil.move(newarea, goodPath)
 
-        <span class="cmt"># this method ends the test
-</span>        <span class="kw">def</span> endSanity(self):
-                f.close()
-                exit()
 
         <span class="cmt"># this method stores a username and password
 </span>        <span class="kw">def</span> getUserAndPass(self):

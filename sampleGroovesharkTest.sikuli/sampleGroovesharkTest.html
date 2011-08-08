@@ -75,107 +75,36 @@
 <span class="kw">import</span> os
 myPath = os.path.dirname(getBundlePath())
 <span class="kw">if</span> <span class="kw">not</span> myPath <span class="kw">in</span> sys.path: sys.path.append(myPath)
-
-<span class="cmt"># import util and googleSearch classes to use the scripts from these files
-</span><span class="kw">from</span> util <span class="kw">import</span> *
 <span class="kw">from</span> groovesharkTest <span class="kw">import</span> *
 
-<span class="cmt"># instantiate the classes
+<span class="cmt"># instantiate the class where we defined the functionality
 </span>
 g = groovesharkTest()
-<span class="cmt"># this class is imported from grooveSharkTest so it didn't need imported again
-</span>i = groovesharkTestImages()
 
-<span class="cmt"># to iterate through the terms and end the loop when out of terms
-</span>count = <span class="dig">2</span>
-
-<span class="cmt"># use try/except to determine whether a part of the test passed or failed
+<span class="cmt">#use try/except to determine whether a part of the test passed or failed
 </span><span class="kw">try</span>:
         <span class="cmt"># open the music player GrooveShark
 </span>        g.openFirefox()
         g.inputUrl(<span class="str">"http://grooveshark.com/"</span>)
         <span class="skw">wait</span>(<span class="dig">7</span>)
-        <span class="cmt"># if opened correctly pass this section of the test
-</span>        <span class="cmt"># a screenshot is taken and a log file is updated with a "passed"
-</span>        g.passed(<span class="str">"openGrooveshark"</span>)
-<span class="cmt"># if an image was not found by Sikuli then catch the exception
-</span><span class="cmt"># and fail the test
-</span><span class="kw">except</span> FindFailed:
-        <span class="cmt"># a screenshot is taken and a log file is updated with a "failed"
-</span>        g.failed(<span class="str">"openGrooveshark"</span>)
+        g.passed(<span class="str">"openGrooveshark"</span>)
 
-<span class="kw">try</span>:
-        <span class="cmt"># log into the application using the first 2 terms of the testdata array
-</span>        <span class="cmt"># which are valid credentials for this site
-</span>        g.login(g.termsArr[<span class="dig">0</span>],g.termsArr[<span class="dig">1</span>])
-        g.passed(<span class="str">"login"</span>)
 <span class="kw">except</span> FindFailed:
-        g.failed(<span class="str">"login"</span>)
-
-<span class="kw">try</span>:
-        <span class="cmt"># click the favorites tab
-</span>        g.clickFavorites()
-        g.passed(<span class="str">"favorites"</span>)
-<span class="kw">except</span> FindFailed:
-        g.failed(<span class="str">"favorites"</span>)
+        g.criticalError(<span class="str">"openGrooveshark"</span>)
 
 <span class="kw">try</span>:
         <span class="cmt"># play all of the songs in the favorites playlist
-</span>        g.playAll()
-        g.passed(<span class="str">"playAll"</span>)
+</span>        g.searchForMusic(<span class="str">"weezer"</span>)
+        g.passed(<span class="str">"weezerSearch"</span>)
 <span class="kw">except</span> FindFailed:
-        g.failed(<span class="str">"playAll"</span>)
+        g.failed(<span class="str">"weezerSearch"</span>)
 
-<span class="kw">try</span>:
-        <span class="cmt"># see all the music that has been added
-</span>        g.seeAllMusic()
-        g.passed(<span class="str">"allMusic"</span>)
-<span class="kw">except</span> FindFailed:
-        g.failed(<span class="str">"allMusic"</span>)
-
-<span class="kw">try</span>:
-        <span class="cmt"># add a song to the playlist
-</span>        g.addSong(i.getImage(<span class="str">"unwellSong"</span>))
-        g.passed(<span class="str">"addSong"</span>)
-        <span class="skw">wait</span>(<span class="dig">2</span>)
-<span class="kw">except</span> FindFailed:
-        g.failed(<span class="str">"addSong"</span>)
-
-<span class="cmt"># start loops to search for new artists
-</span><span class="kw">while</span>(count &lt; len(g.termsArr)):
+<span class="kw">for</span> i <span class="kw">in</span> range(len(g.termsArr)):
         <span class="kw">try</span>:
-                <span class="cmt"># use terms from the testdata array
-</span>                g.searchForMusic(g.termsArr[count])
-                g.passed(<span class="str">"searchMusic"</span>)
+                g.searchForMusic(g.termsArr[i])
+                g.passed(<span class="str">"MusicSearch term = "</span> + g.termsArr[i])
         <span class="kw">except</span> FindFailed:
-                g.failed(<span class="str">"searchMusic"</span>)
-
-        <span class="kw">try</span>:
-                <span class="cmt"># play all from the artist that is searched
-</span>                g.playAll()
-                g.passed(<span class="str">"playAll"</span>)
-        <span class="kw">except</span> FindFailed:
-                g.failed(<span class="str">"playAll"</span>)
-
-        <span class="cmt"># increment count iterate over the terms and end the loop
-</span>        count = count + <span class="dig">1</span>
-
-<span class="cmt"># listen to a song for 10 seconds
-</span><span class="skw">wait</span>(<span class="dig">10</span>)
-
-<span class="kw">try</span>:
-        <span class="cmt"># clear the playlist
-</span>        g.clearPlaylist()
-        g.passed(<span class="str">"clearList"</span>)
-<span class="kw">except</span> FindFailed:
-        g.failed(<span class="str">"clearList"</span>)
-
-<span class="kw">try</span>:
-        <span class="cmt"># log out of the application
-</span>        g.logoutGrooveshark()
-        g.passed(<span class="str">"logout"</span>)
-<span class="kw">except</span> FindFailed:
-        g.failed(<span class="str">"logout"</span>)
+                g.failed(<span class="str">"MusicSearch term = "</span> + g.termsArr[i])
 
 g.closeBrowser()
 g.passed(<span class="str">"close"</span>)

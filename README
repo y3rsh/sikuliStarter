@@ -1,0 +1,3 @@
+This repository is just enought to get you going with Sikuli.
+The original code resides in the util class and offers easy to configure screenshots and logging of tests.
+There is a sample class of functionality for Grooveshark and a sample script to get you up and running.

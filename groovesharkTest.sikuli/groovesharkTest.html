@@ -98,6 +98,7 @@ myPath = os.path.dirname(getBundlePath())
                         self.passed(<span class="str">"login"</span>)
                 <span class="kw">except</span> FindFailed:
                         self.criticalError(<span class="str">"login"</span>)
+
         <span class="kw">def</span> playSong(self,image):
                 <span class="skw">doubleClick</span>(image)
                 <span class="skw">wait</span>(<span class="dig">1</span>)
@@ -132,12 +133,11 @@ myPath = os.path.dirname(getBundlePath())
                         self.passed(<span class="str">"Music Search"</span>)
                 <span class="kw">except</span> FindFailed:
                         self.failed(<span class="str">"Music Search"</span>)
+
         <span class="kw">def</span> logoutGrooveshark(self):
                 <span class="skw">click</span>(self.myImages.getImage(<span class="str">"accountButton"</span>))
                 <span class="skw">click</span>(self.myImages.getImage(<span class="str">"logout"</span>))
                 <span class="skw">wait</span>(<span class="dig">1</span>)
-
-g = groovesharkTest()
 </pre>
 </body>
 </html>

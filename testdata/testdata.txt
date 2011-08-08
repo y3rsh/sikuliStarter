@@ -1,4 +1,4 @@
 [terms]
-term=grooveshark_test,password,metallica,queen
+term=beetles,radiohead,katy perry
 users=josh,thomas,mcvey
 passwords=12345,12345,12345

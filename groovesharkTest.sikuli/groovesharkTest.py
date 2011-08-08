@@ -26,6 +26,7 @@ class groovesharkTest(util):
 			self.passed("login")
 		except FindFailed:
 			self.criticalError("login")
+	
 	def playSong(self,image):
 		doubleClick(image)
 		wait(1)
@@ -60,12 +61,12 @@ class groovesharkTest(util):
 			self.passed("Music Search")
 		except FindFailed:
 			self.failed("Music Search")
+	
 	def logoutGrooveshark(self):
 		click(self.myImages.getImage("accountButton"))
 		click(self.myImages.getImage("logout"))
 		wait(1)
 
-g = groovesharkTest()
 
 
 

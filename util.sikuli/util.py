@@ -133,11 +133,7 @@ class util:
 	        # save the screenshot to the specified directory
 	        shutil.move(newarea, goodPath)
 	
-	# this method ends the test
-	def endSanity(self):
-	        f.close()
-	        exit()
-	
+
 	# this method stores a username and password
 	def getUserAndPass(self):
 	        # store the user's input
@@ -292,4 +288,3 @@ class util:
 
 	def closeBrowser(self):
 		type(Key.F4,KEY_ALT)
-

@@ -8,5 +8,5 @@ site=http://grooveshark.com/
 screenWidth=1600
 screenHeight=900
 iePath=
-firefoxPath=c:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe
+firefoxPath=
 chromePath=

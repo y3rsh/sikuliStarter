@@ -1,4 +1,4 @@
 [terms]
-term=beetles,radiohead,katy perry
+term=beatles,radiohead,katy perry
 users=josh,thomas,mcvey
 passwords=12345,12345,12345

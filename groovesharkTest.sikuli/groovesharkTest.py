@@ -8,25 +8,22 @@ from regionDictionary import *
 
 class groovesharkTest(util):
 	myImages = groovesharkTestImages()
-
-	reg = regionDictionary(900,1600)
-	
-	def searchForMusic(self,term):
+	def searchForTermsFromDataFile(self):
+		for i in range(len(self.termsArr)):	
+			self.searchForMusic(self.termsArr[i]," Terms from data File ")
+			
+	def searchForMusic(self,term,testName):
 		try:
+			self.clearMouse()
 			self.reg.getReg("ne").click(self.myImages.getImage("searchButton"))
 			wait(2)
+			self.clearSearch()
 			type(term)
-			click(self.myImages.getImage("searchButton"))
-			wait(1)
-			click(self.myImages.getImage("searchButton"))
-			click(self.myImages.getImage("darkSearchMusic"))
-			type(term)
-			#click(self.myImages.getImage("searchButton2"))
 			type(Key.ENTER)
 			wait(4)
-			self.passed("Music Search")
+			self.passed(testName + term)
 		except FindFailed:
-			self.failed("Music Search")
+			self.failed(testName + term)
 
 
 	def clearSearch(self):
@@ -36,17 +33,10 @@ class groovesharkTest(util):
 			type("a",KEY_CTRL)
 			type(Key.DELETE)
 			wait(4)
-			self.passed("Clear Search Field")
 		except FindFailed:
 			self.failed("Clear Search  Field")
 
 	
-
+#unit test
 #g = groovesharkTest()
-#g.searchForMusic("weezer")
-
-
-
-
-
-	
+#g.searchForTermsFromDataFile("Terms from File")

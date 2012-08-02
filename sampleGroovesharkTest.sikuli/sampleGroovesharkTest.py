@@ -10,21 +10,9 @@ from groovesharkTest import *
 g = groovesharkTest()
 
 #use try/except to determine whether a part of the test passed or failed
-try:
-	# 
-	g.clearSearch()
-	g.searchForMusic("weezer")
-	g.passed("weezerSearch")
-except FindFailed:
-	g.failed("weezerSearch")
 
-for i in range(len(g.termsArr)):	
-	try:
-		g.clearSearch()
-		g.searchForMusic(g.termsArr[i])
-		g.passed("MusicSearch term = " + g.termsArr[i])
-	except FindFailed:
-		g.failed("MusicSearch term = " + g.termsArr[i])
+g.searchForMusic("weezer", " search for single term ")
+g.searchForTermsFromDataFile()
 
 # done
 print("TEST COMPLETE")

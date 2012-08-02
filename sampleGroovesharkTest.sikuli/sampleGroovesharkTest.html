@@ -1,0 +1,94 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }  
+         
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>sampleGroovesharkTest.sikuli\sampleGroovesharkTest.sikuli</h2> <a href="sampleGroovesharkTest.sikuli\sampleGroovesharkTest.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="cmt">#import these lines to get extra functionality out of Sikuli
+</span><span class="kw">from</span> sikuli.Sikuli <span class="kw">import</span> *
+<span class="kw">import</span> os
+myPath = os.path.dirname(getBundlePath())
+<span class="kw">if</span> <span class="kw">not</span> myPath <span class="kw">in</span> sys.path: sys.path.append(myPath)
+<span class="kw">from</span> groovesharkTest <span class="kw">import</span> *
+
+<span class="cmt"># instantiate the class where we defined the functionality
+</span>
+g = groovesharkTest()
+
+<span class="cmt">#use try/except to determine whether a part of the test passed or failed
+</span>
+g.searchForMusic(<span class="str">"weezer"</span>, <span class="str">" search for single term "</span>)
+g.searchForTermsFromDataFile()
+
+<span class="cmt"># done
+</span><span class="kw">print</span>(<span class="str">"TEST COMPLETE"</span>)
+exit()
+</pre>
+</body>
+</html>

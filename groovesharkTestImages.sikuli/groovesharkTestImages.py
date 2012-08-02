@@ -19,12 +19,6 @@ class groovesharkTestImages():
 		self.addImage("accountButton","accountButton.png")
 		self.addImage("logout","logout.png")
 		self.addImage("searchButton",Pattern("1seam-1.png").similar(0.85).targetOffset(-18,1))
-		self.addImage("lightSearchMusic",Pattern("1seam.png").targetOffset(-29,0))
-		self.addImage("darkSearchMusic",Pattern("1seam.png").targetOffset(-29,0))
-		self.addImage("searchButton","searchButton.png")
-		self.addImage("lightSearchMusic","lightSearchMusic.png")
-		self.addImage("darkSearchMusic","darkSearchMusic.png")
-		self.addImage("searchButton2","searchButton2.png")
 		self.addImage("unwellSong","unwell.png")
 
 		

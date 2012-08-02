@@ -1,0 +1,104 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }  
+         
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>groovesharkTestImages.sikuli\groovesharkTestImages.sikuli</h2> <a href="groovesharkTestImages.sikuli\groovesharkTestImages.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="kw">from</span> sikuli.Sikuli <span class="kw">import</span> *
+
+<span class="kw">class</span> groovesharkTestImages():
+
+        imgDict = {}
+
+        <span class="kw">def</span> __init__(self):
+                self.imgDict = {}
+                self.addImage(<span class="str">"login"</span>,Pattern(<img src="namEMembermg.png" />).targetOffset(<span class="dig">1</span>,-<span class="dig">2</span>))
+                self.addImage(<span class="str">"myMusic"</span>,<img src="myMusic.png" />)
+                self.addImage(<span class="str">"playSong"</span>,<img src="playSong.png" />)
+                self.addImage(<span class="str">"playAll"</span>,<img src="playAll.png" />)
+                self.addImage(<span class="str">"favorites"</span>,<img src="favorites.png" />)
+                self.addImage(<span class="str">"username"</span>,Pattern(<img src="BecomeaMembe-1.png" />).similar(<span class="dig">0.90</span>).targetOffset(-<span class="dig">124</span>,<span class="dig">56</span>))
+                self.addImage(<span class="str">"password"</span>,Pattern(<img src="imammeLoginw.png" />).similar(<span class="dig">0.58</span>).targetOffset(-<span class="dig">120</span>,-<span class="dig">64</span>))
+                self.addImage(<span class="str">"loginButton"</span>,Pattern(<img src="imammeLoginw.png" />).targetOffset(-<span class="dig">116</span>,-<span class="dig">20</span>))
+                self.addImage(<span class="str">"addSong"</span>,<img src="addSong.png" />)
+                self.addImage(<span class="str">"removePlaylist"</span>,<img src="removePlaylist.png" />)
+                self.addImage(<span class="str">"accountButton"</span>,<img src="accountButton.png" />)
+                self.addImage(<span class="str">"logout"</span>,<img src="logout.png" />)
+                self.addImage(<span class="str">"searchButton"</span>,Pattern(<img src="1seam-1.png" />).similar(<span class="dig">0.85</span>).targetOffset(-<span class="dig">18</span>,<span class="dig">1</span>))
+                self.addImage(<span class="str">"unwellSong"</span>,<img src="unwell.png" />)
+
+
+        <span class="kw">def</span> addImage(self, name, img):
+                self.imgDict[name] = img
+
+        <span class="kw">def</span> getImage(self, name):
+                <span class="kw">return</span> self.imgDict[name]
+</pre>
+</body>
+</html>
